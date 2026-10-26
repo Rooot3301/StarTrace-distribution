@@ -1,0 +1,76 @@
+# Met le manifeste à jour quand une release est réellement publiée.
+#
+# Ce workflow existe pour corriger un ordre fautif. Le dépôt du code créait la
+# release **et** écrivait le manifeste dans la foulée — mais une release en
+# brouillon ne crée pas son tag. Le manifeste annonçait donc une adresse qui
+# rendait 404 tant que personne n'avait cliqué sur « Publish release ».
+#
+# Déclenché par `release: published`, il n'écrit qu'au moment où la page
+# qu'il désigne devient réelle. La fenêtre pendant laquelle le manifeste
+# pouvait mentir n'existe plus.
+#
+# Il utilise le jeton que GitHub fournit à ce dépôt : aucun secret
+# supplémentaire, et aucun accès au dépôt du code source.
+name: Manifeste
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: manifeste
+  cancel-in-progress: false
+
+jobs:
+  annoncer:
+    name: Annoncer la version publiée
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Écrire le manifeste
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          PAGE: ${{ github.event.release.html_url }}
+          BROUILLON: ${{ github.event.release.draft }}
+          PREVERSION: ${{ github.event.release.prerelease }}
+        run: |
+          set -euo pipefail
+
+          # Ceinture et bretelles : l'événement `published` ne porte pas de
+          # brouillon, mais annoncer une préversion comme version courante
+          # enverrait tout le monde dessus.
+          if [ "$BROUILLON" = "true" ] || [ "$PREVERSION" = "true" ]; then
+            echo "release non destinée au canal stable, manifeste inchangé"
+            exit 0
+          fi
+
+          version="${TAG#v}"
+          cat > latest.json <<JSON
+          {
+            "version": "${version}",
+            "releaseUrl": "${PAGE}"
+          }
+          JSON
+          cat latest.json
+
+      - name: Publier le manifeste
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          git config user.name "Rooot3301"
+          git config user.email "romainvarene06@gmail.com"
+          git add latest.json
+          if git diff --cached --quiet; then
+            echo "manifeste déjà à jour"
+            exit 0
+          fi
+          git commit -m "Annoncer la version ${TAG#v}"
+          git push
