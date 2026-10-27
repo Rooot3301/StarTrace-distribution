@@ -19,6 +19,18 @@
 # Une release normale n'écrit que `latest.json`. Une préversion n'écrit que
 # `evocati.json`.
 #
+# ## Le manifeste signé
+#
+# `update-live.json` et `update-evocati.json` portent, en plus du numéro,
+# l'adresse de l'installeur et sa **signature**. C'est ce que lit le module
+# qui installe depuis l'application : il refuse tout fichier dont la signature
+# n'est pas celle du projet.
+#
+# La signature est produite à la construction, voyage comme un fichier joint
+# à la release, et n'est recopiée ici qu'une fois la release publiée — donc
+# une fois que l'adresse de l'installeur est stable. Les adresses d'un
+# brouillon changent au moment de la publication.
+#
 # Il utilise le jeton que GitHub fournit à ce dépôt : aucun secret
 # supplémentaire, et aucun accès au dépôt du code source.
 name: Manifeste
@@ -57,6 +69,7 @@ jobs:
           PAGE: ${{ github.event.release.html_url }}
           BROUILLON: ${{ github.event.release.draft }}
           PREVERSION: ${{ github.event.release.prerelease }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
 
@@ -85,6 +98,48 @@ jobs:
           echo "écrit dans $cible :"
           cat "$cible"
 
+          # --- le manifeste signé, pour l'installation depuis l'application ---
+          if [ "$PREVERSION" = "true" ]; then
+            signe=update-evocati.json
+          else
+            signe=update-live.json
+          fi
+
+          installeur=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" \
+            --json assets \
+            --jq '.assets[] | select(.name | endswith("x64-setup.exe")) | .url')
+          nom_sig=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" \
+            --json assets \
+            --jq '.assets[] | select(.name | endswith("x64-setup.exe.sig")) | .name')
+
+          if [ -z "$installeur" ] || [ -z "$nom_sig" ]; then
+            echo "::warning::Pas d'installeur signé sur cette release : $signe inchangé."
+            echo "L'installation depuis l'application restera indisponible pour $version."
+          else
+            gh release download "$TAG" --repo "$GITHUB_REPOSITORY" \
+              --pattern "$nom_sig" --dir . --clobber
+            signature=$(cat "$nom_sig")
+            rm -f "$nom_sig"
+
+            # `notes` reste court : la page de la release porte le détail, et
+            # le module n'affiche qu'une ligne.
+            cat > "$signe" <<JSON
+          {
+            "version": "${version}",
+            "notes": "StarTrace ${version}. Le détail figure sur la page de la release.",
+            "pub_date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "platforms": {
+              "windows-x86_64": {
+                "signature": "${signature}",
+                "url": "${installeur}"
+              }
+            }
+          }
+          JSON
+            echo "écrit dans $signe :"
+            cat "$signe"
+          fi
+
       - name: Publier le manifeste
         env:
           TAG: ${{ github.event.release.tag_name }}
@@ -92,7 +147,7 @@ jobs:
           set -euo pipefail
           git config user.name "Rooot3301"
           git config user.email "romainvarene06@gmail.com"
-          git add latest.json evocati.json
+          git add latest.json evocati.json update-live.json update-evocati.json
           if git diff --cached --quiet; then
             echo "manifeste déjà à jour"
             exit 0
