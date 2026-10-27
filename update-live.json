@@ -1,6 +1,11 @@
 {
-  "version": "0.0.0",
-  "notes": "Aucune version signée publiée pour ce canal.",
-  "pub_date": "2026-10-27T00:00:00Z",
-  "platforms": {}
+  "version": "1.6.2",
+  "notes": "StarTrace 1.6.2. Le détail figure sur la page de la release.",
+  "pub_date": "2026-10-27T14:11:39Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZVJtVWpVd08zU0R4S3JIeDdyOUFha0tnSlUweWNvS21KZE92ajJZYjE2bmFianBsdDBFc05jWXJuTzZ0WXArOGFnU1NKQXZYOWgzanh1aXAyS2NRVXh5QnQxSGhLYUFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMTA5NzE3CWZpbGU6U3RhclRyYWNlXzEuNi4yX3g2NC1zZXR1cC5leGUJdmVyc2lvbjoxLjYuMgpPbDY1Z3d0ck81akpLZVlsWlpKR0VCL0FXSXlQTFZZU2E2ZXRiQU5iajhNTUxYeFJ0NmgxMUNlY0xyR0VKV1RDb2NXditIVE9ZVkljM1ZVSjVlZTJCQT09Cg==",
+      "url": "https://github.com/Rooot3301/StarTrace-distribution/releases/download/v1.6.2/StarTrace_1.6.2_x64-setup.exe"
+    }
+  }
 }
