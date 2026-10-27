@@ -88,7 +88,16 @@ jobs:
             cible=latest.json
           fi
 
+          # Le numéro annoncé est celui que l'installeur déclare, et non celui
+          # du tag. La signature de la mise à jour couvre le premier ; les
+          # faire diverger fait échouer l'installation sur une alerte de
+          # falsification, ce qui est le comportement correct du module.
+          #
+          # Le suffixe du tag choisit le canal, pas la version. Deux
+          # préversions d'un même socle ne sont donc pas distinguables par le
+          # module : on incrémente le socle plutôt que le suffixe.
           version="${TAG#v}"
+          version="${version%%-*}"
           cat > "$cible" <<JSON
           {
             "version": "${version}",
