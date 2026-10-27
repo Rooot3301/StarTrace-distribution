@@ -1,0 +1,36 @@
+Copyright (c) 2026 Rooot3301. Tous droits réservés.
+
+StarTrace est un logiciel propriétaire. Son code source n'est pas publié.
+
+## Ce que vous pouvez faire
+
+L'application distribuée depuis
+https://github.com/Rooot3301/StarTrace-distribution peut être téléchargée,
+installée et utilisée gratuitement, pour un usage personnel comme
+professionnel, sans limite de durée et sans enregistrement.
+
+Vous pouvez la copier et la transmettre telle quelle, à condition de ne rien
+en retirer et de ne pas la faire passer pour autre chose.
+
+## Ce que vous ne pouvez pas faire
+
+Vous ne pouvez ni la modifier, ni la décompiler, ni en extraire des parties
+pour les intégrer ailleurs, ni la revendre, ni la distribuer sous un autre
+nom.
+
+## Garantie
+
+Aucune. Le logiciel est fourni « en l'état ». Il lit des fichiers de journal
+et n'écrit que ce que vous lui demandez d'exporter, mais rien n'est garanti,
+pas même qu'il fonctionne. L'auteur ne peut être tenu responsable d'aucun
+dommage résultant de son usage.
+
+## Star Citizen
+
+StarTrace est un outil indépendant. Il n'est ni affilié à, ni approuvé par,
+ni soutenu par Cloud Imperium Games ou Roberts Space Industries. Star Citizen
+est une marque de Cloud Imperium Rights LLC.
+
+StarTrace ne modifie pas le jeu, ne s'y injecte pas, et ne communique avec
+aucun de ses services. Il lit les journaux que le jeu écrit sur votre disque,
+et rien d'autre.

@@ -9,6 +9,16 @@
 # qu'il désigne devient réelle. La fenêtre pendant laquelle le manifeste
 # pouvait mentir n'existe plus.
 #
+# ## Deux manifestes
+#
+# `latest.json` annonce les versions publiées, `evocati.json` les
+# préversions. Deux fichiers plutôt qu'un seul à deux champs : le canal LIVE
+# ne doit pas même télécharger le numéro d'une préversion, et une erreur d'un
+# côté ne peut rien casser de l'autre.
+#
+# Une release normale n'écrit que `latest.json`. Une préversion n'écrit que
+# `evocati.json`.
+#
 # Il utilise le jeton que GitHub fournit à ce dépôt : aucun secret
 # supplémentaire, et aucun accès au dépôt du code source.
 name: Manifeste
@@ -44,21 +54,29 @@ jobs:
           set -euo pipefail
 
           # Ceinture et bretelles : l'événement `published` ne porte pas de
-          # brouillon, mais annoncer une préversion comme version courante
-          # enverrait tout le monde dessus.
-          if [ "$BROUILLON" = "true" ] || [ "$PREVERSION" = "true" ]; then
-            echo "release non destinée au canal stable, manifeste inchangé"
+          # brouillon, mais annoncer un brouillon enverrait tout le monde sur
+          # une page qui n'existe pas.
+          if [ "$BROUILLON" = "true" ]; then
+            echo "brouillon : aucun manifeste touché"
             exit 0
           fi
 
+          # Une préversion ne touche jamais le manifeste du canal LIVE.
+          if [ "$PREVERSION" = "true" ]; then
+            cible=evocati.json
+          else
+            cible=latest.json
+          fi
+
           version="${TAG#v}"
-          cat > latest.json <<JSON
+          cat > "$cible" <<JSON
           {
             "version": "${version}",
             "releaseUrl": "${PAGE}"
           }
           JSON
-          cat latest.json
+          echo "écrit dans $cible :"
+          cat "$cible"
 
       - name: Publier le manifeste
         env:
@@ -67,7 +85,7 @@ jobs:
           set -euo pipefail
           git config user.name "Rooot3301"
           git config user.email "romainvarene06@gmail.com"
-          git add latest.json
+          git add latest.json evocati.json
           if git diff --cached --quiet; then
             echo "manifeste déjà à jour"
             exit 0
