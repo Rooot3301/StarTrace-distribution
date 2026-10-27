@@ -41,8 +41,15 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      # `ref: main` explicitement. Sur un evenement `release`, checkout se
+      # place sur le tag, donc en HEAD detachee : le commit passait et le
+      # `git push` echouait sur « You are not currently on a branch ». Le
+      # manifeste n'a jamais ete ecrit tant que ce workflow n'avait pas eu de
+      # release publiee a traiter.
       - name: Récupérer le dépôt
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: main
 
       - name: Écrire le manifeste
         env:
@@ -91,4 +98,6 @@ jobs:
             exit 0
           fi
           git commit -m "Annoncer la version ${TAG#v}"
-          git push
+          # La destination est nommee : si la recuperation retombait un jour
+          # en HEAD detachee, l'echec serait silencieux a la ligne d'avant.
+          git push origin HEAD:main
