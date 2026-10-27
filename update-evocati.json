@@ -1,6 +1,11 @@
 {
-  "version": "0.0.0",
-  "notes": "Aucune version signée publiée pour ce canal.",
-  "pub_date": "2026-10-27T00:00:00Z",
-  "platforms": {}
+  "version": "1.6.0-evocati.1",
+  "notes": "StarTrace 1.6.0-evocati.1. Le détail figure sur la page de la release.",
+  "pub_date": "2026-10-27T13:19:14Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZVJtVWpVd08zU056M1BES0VDcDhFYkpjMmt1enM4Y0Q2UDY0ZDdURXlOUmxiRjY2STc1RlpOVTNJb2xaSXFmQnhPK283TjNJN21Vb0lUdkxXUFZSMUlJdzJybmpYZ1E4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMTA3MDg4CWZpbGU6U3RhclRyYWNlXzEuNi4wX3g2NC1zZXR1cC5leGUJdmVyc2lvbjoxLjYuMApPaWswZThScExwdjczL3FNeU0vcENnb2lubFN0SFR4amJWYS82T3dwN1pacVFHZ2lIMFNCcS94TTVSSmIyak9PRTdmSmhJUW10UlljeUVycGpxY0REUT09Cg==",
+      "url": "https://github.com/Rooot3301/StarTrace-distribution/releases/download/v1.6.0-evocati.1/StarTrace_1.6.0_x64-setup.exe"
+    }
+  }
 }
