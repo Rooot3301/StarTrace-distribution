@@ -1,11 +1,11 @@
 {
-  "version": "1.7.1",
-  "notes": "StarTrace 1.7.1. Le détail figure sur la page de la release.",
-  "pub_date": "2026-10-27T16:32:40Z",
+  "version": "1.7.3",
+  "notes": "StarTrace 1.7.3. Le détail figure sur la page de la release.",
+  "pub_date": "2026-10-28T10:31:11Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZVJtVWpVd08zU0hmQ2hkRXlIeGxPN3YvQ2JWVG1nZDdwVmpUcThlZEtONlZBYytlcVhhZGMyVTR6MTdaL3c0amwydlJnRUdhcXhjd3hMNHdJeENmTjlwYnBEUU5DaWdBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMTE4NjYzCWZpbGU6U3RhclRyYWNlXzEuNy4xX3g2NC1zZXR1cC5leGUJdmVyc2lvbjoxLjcuMQpkYkJtK1FTSGIwZmZSZmtZTkRtd2ErbkdyaTJpOWltMHdGb05aSzhJTkJBb1E3djNScGFIUUxiNVRJd3R0Z1A3YldtOUpWTkJ1b2hQRDdJYXFwa2ZDQT09Cg==",
-      "url": "https://github.com/Rooot3301/StarTrace-distribution/releases/download/v1.7.1-evocati.1/StarTrace_1.7.1_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTZVJtVWpVd08zU0JUZGFqMUZENUdUbWlkWEYrZjYzUnV4VllZZHovK0VPYkZVS0dKZXhEMzUxeWxjTllIQkNEL1p4MzN5eG5nc2lGR1YxTDc5b2NnZEp4ZjhDazVyVEFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzkzMTgzMzYzCWZpbGU6U3RhclRyYWNlXzEuNy4zX3g2NC1zZXR1cC5leGUJdmVyc2lvbjoxLjcuMwpIbXA2L3pNTmU1b2RxUGhOaFgrMnRpOEY0V0lJTStZQ1NqeDUzYWhMc0pjeXBlN2xrWmcvQ2hHNlhKV2VVRTlRVGI3aExwU2x1alM5ZkhnbTZobXVDdz09Cg==",
+      "url": "https://github.com/Rooot3301/StarTrace-distribution/releases/download/v1.7.3-evocati.1/StarTrace_1.7.3_x64-setup.exe"
     }
   }
 }
